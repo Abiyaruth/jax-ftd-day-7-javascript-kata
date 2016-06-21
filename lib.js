@@ -19,9 +19,35 @@ function createGrowthModel (lengthToWingspan, leavesEatenToWeight) {
  *
  * @return a GrowthModel object
  */
-function averageGrowthModel (growthModels) {
+function averageGrowthModel (arr) {
+// const arr = ({lengthToWingspan: lengthToWingspan, leavesEatenToWeight: leavesEatenToWeight})
+    if (arr.length > 0) {
+      const added = arr.reduce(
+        (acc, next) =>
+        {
+          acc.lengthToWingspan += next.lengthToWingspan
+          acc.leavesEatenToWeight += next.leavesEatenToWeight
+          return acc
+        },
+        /*  createGrowthModel(
+            acc.lengthToWingspan + next.lengthToWingspan,
+            acc.leavesEatenToWeight + next.leavesEatenToWeight
+          ),*/
+          createGrowthModel(0, 0)
+      )
+      added.lengthToWingspan /= arr.length
+      added.leavesEatenToWeight /= arr.length
+      return added
+      /*const mid = createGrowthModel(
+        added.lengthToWingspan / arr.length,
+        added.leavesEatenToWeight / arr.length
+      )
+      return mid*/
+    } else {
+      return undefined
+    }
+  }
   // TODO: implement using Array.prototype.reduce()
-}
 
 module.exports = {
   createGrowthModel,
